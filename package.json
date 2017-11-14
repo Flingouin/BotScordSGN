@@ -1,0 +1,24 @@
+{
+  "name": "scord",
+  "version": "1.0.0",
+  "description": "Scord Bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flingouin/BotScord.git"
+  },
+  "author": "Flingouin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Flingouin/BotScord/issues"
+  },
+  "homepage": "https://github.com/Flingouin/BotScord#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "djs-collection-persistent": "^0.1.5",
+    "fs-extra": "^4.0.2"
+  }
+}
