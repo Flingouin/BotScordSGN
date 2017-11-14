@@ -1,5 +1,5 @@
-2017/11/14-17:05:40.287 455c Recovering log #134
-2017/11/14-17:05:40.288 455c Level-0 table #137: started
-2017/11/14-17:05:40.300 455c Level-0 table #137: 183 bytes OK
-2017/11/14-17:05:40.319 455c Delete type=0 #134
-2017/11/14-17:05:40.321 455c Delete type=3 #132
+2017/11/14-17:20:01.265 46dc Recovering log #141
+2017/11/14-17:20:01.266 46dc Level-0 table #143: started
+2017/11/14-17:20:01.279 46dc Level-0 table #143: 183 bytes OK
+2017/11/14-17:20:01.297 46dc Delete type=0 #141
+2017/11/14-17:20:01.299 46dc Delete type=3 #139
