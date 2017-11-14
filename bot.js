@@ -34,8 +34,10 @@ bot.on('message', message => {
 	for(i=0 ; i<10 ; i++)
 	{
 		
-
-		if(table.get("user"+i) == 0 || table.get("user"+i) != authorMsg){
+		if (table.get("user"+i)==authorMsg) {
+			break;
+		}
+		if(table.get("user"+i) == 0){
 			table.set("user"+i, authorMsg);
 			console.log(table.get("user"+i));
 			break;

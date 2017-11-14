@@ -1,5 +1,5 @@
-2017/11/14-16:52:29.638 2db4 Recovering log #121
-2017/11/14-16:52:29.638 2db4 Level-0 table #124: started
-2017/11/14-16:52:29.653 2db4 Level-0 table #124: 183 bytes OK
-2017/11/14-16:52:29.670 2db4 Delete type=0 #121
-2017/11/14-16:52:29.671 2db4 Delete type=3 #119
+2017/11/14-17:05:40.287 455c Recovering log #134
+2017/11/14-17:05:40.288 455c Level-0 table #137: started
+2017/11/14-17:05:40.300 455c Level-0 table #137: 183 bytes OK
+2017/11/14-17:05:40.319 455c Delete type=0 #134
+2017/11/14-17:05:40.321 455c Delete type=3 #132
