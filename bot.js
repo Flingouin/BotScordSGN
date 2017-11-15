@@ -21,25 +21,31 @@ bot.on("ready", async() =>{
 		console.log(e.stack);
 		}
 	bot.user.setGame("sauver des princesses");
-	bot.user.setStatus("idle")
+	bot.user.setStatus("idle");
+
 });
 
 bot.on('message', message => {
 	if(message.content.startsWith(config.prefix + "lorem")){
 	message.channel.send("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 	var authorMsg = message.author.username;
-	for(i=0 ; i<10 ; i++)
+	var nbAuthors = nbAuthor.get("nbAuthor");
+	var verif = 0;
+	for(i=0 ; i<=nbAuthors ; i++)
 	{
 		
 		if (table.get("user"+i)==authorMsg) {
+			verif = 1;
 			break;
 		}
-		if(table.get("user"+i) == 0){
+
+	}
+		if(verif == 0){
 			table.set("user"+i, authorMsg);
 			console.log(table.get("user"+i));
-			break;
+			nbAuthors++
+			nbAuthor.set("nbAuthor", nbAuthors);
 		}
-	}
 
 }
 
@@ -60,7 +66,8 @@ bot.on('message', message => {
 	if(message.content.startsWith(config.prefix + "who")){
 		var newTableAuthor = Array();
 		var user = "";
-		for(i=0; i<10; i++){
+		var nbAuthors = nbAuthor.get("nbAuthor");
+		for(i=0; i<=nbAuthors; i++){
 
 			user = table.get("user"+i)
 			newTableAuthor.push(user)
