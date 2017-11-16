@@ -1,5 +1,5 @@
-2017/11/15-11:34:27.387 4cb8 Recovering log #238
-2017/11/15-11:34:27.387 4cb8 Level-0 table #241: started
-2017/11/15-11:34:27.403 4cb8 Level-0 table #241: 183 bytes OK
-2017/11/15-11:34:27.418 4cb8 Delete type=0 #238
-2017/11/15-11:34:27.418 4cb8 Delete type=3 #236
+2017/11/16-13:23:02.933 3a30 Recovering log #453
+2017/11/16-13:23:02.933 3a30 Level-0 table #455: started
+2017/11/16-13:23:02.967 3a30 Level-0 table #455: 183 bytes OK
+2017/11/16-13:23:03.014 3a30 Delete type=0 #453
+2017/11/16-13:23:03.017 3a30 Delete type=3 #451

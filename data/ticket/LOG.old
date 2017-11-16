@@ -1,0 +1,14 @@
+2017/11/16-13:21:18.047 45d0 Recovering log #168
+2017/11/16-13:21:18.048 45d0 Level-0 table #170: started
+2017/11/16-13:21:18.073 45d0 Level-0 table #170: 441 bytes OK
+2017/11/16-13:21:18.095 45d0 Delete type=0 #168
+2017/11/16-13:21:18.097 45d0 Delete type=3 #166
+2017/11/16-13:21:18.101 4eb0 Compacting 4@0 + 1@1 files
+2017/11/16-13:21:18.110 4eb0 Generated table #172@0: 17 keys, 441 bytes
+2017/11/16-13:21:18.110 4eb0 Compacted 4@0 + 1@1 files => 441 bytes
+2017/11/16-13:21:18.111 4eb0 compacted to: files[ 0 1 0 0 0 0 0 ]
+2017/11/16-13:21:18.112 4eb0 Delete type=2 #159
+2017/11/16-13:21:18.114 4eb0 Delete type=2 #161
+2017/11/16-13:21:18.116 4eb0 Delete type=2 #164
+2017/11/16-13:21:18.118 4eb0 Delete type=2 #167
+2017/11/16-13:21:18.121 4eb0 Delete type=2 #170
