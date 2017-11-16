@@ -76,7 +76,7 @@ bot.on('message', message => {
 		var msglength = msg.length;
 		var pos = msg.search("!ticket");
 		var idAuthor = message.author.id;
-		var Author = message.author.username;
+		var Author = message.author.tag;
 		var idTicket = ticket.get("idTicket");
 		msg = msg.slice(pos+7, msglength);
 
@@ -99,18 +99,26 @@ bot.on('message', message => {
 			var nbTicket = -1;
 			for(i=1; i<=ticket.get("idTicket"); i++)
 			{
+				if(ticket.get("TicketMsg"+i)== null)
+				{
+					nbTicket--
+				}else{
 				nbTicket++;
 			}
-			message.channel.send("Il y a " + nbTicket + " doléance(s) en attente.")
+			}
+			if(nbTicket == -1){nbTicket=0;}
+			message.channel.send("Il y a " + nbTicket + " doléance(s) ouverte.")
 			for(i=1; i<ticket.get("idTicket"); i++)
 			{
-				message.channel.send("",{
-					embed: {
-						title: "Ticket numéro " + i.toString(),
-						description: ticket.get("TicketMsg"+i)+"\n"+ticket.get("TicketAuthor"+i),
-						color: 0xff9900,
-					}
-				});
+				if(ticket.get("TicketMsg") != null){
+					message.channel.send("",{
+						embed: {
+							title: "Doléance " + i.toString(),
+							description: ticket.get("TicketMsg"+i)+"\n"+ticket.get("TicketAuthor"+i),
+							color: 0xff9900,
+						}
+					});
+				}
 			}
 		}else{
 			message.channel.send("Vous n'êtes pas mon maître !")
@@ -120,9 +128,39 @@ bot.on('message', message => {
 
 	if(message.content.startsWith(config.prefix +"tr"))
 	{
+		var msg = message.content;
+		var ticketId = msg.split(" ");
+		var ticketlth = ticketId.length;
+		var msgfinal = "";
+		var msglth =0;
+		msg = ticketId.splice(2,ticketlth);
+		msglth = msg.length;
+		ticketId = ticketId.splice(1,1);
+		ticketId = parseInt(ticketId);
+		for(i=0; i<msglth; i++)
+		{
+			var msg2 = msg[i] + " ";
+			msgfinal = msgfinal + msg2;
+		}
+		var msgUser = ticket.get("TicketMsg"+ticketId);
+		var author = ticket.get("TicketAuthor"+ticketId);
+		var msgReturn = msgUser +"\n\n" + msgfinal;
+		ticket.set("TicketMsg" + ticketId, msgReturn + " " + message.author.tag +"\n");
 
 	}
 
+
+	if(message.content.startsWith(config.prefix + "tclose"))
+	{
+		var msg = message.content;
+		var ticketId = msg.split(" ");
+		var ticketlth = ticketId.length;
+		ticketId = ticketId.splice(1,1);
+		ticketId = parseInt(ticketId);
+		ticket.delete("TicketIdAuthor" + ticketId);
+		ticket.delete("TicketAuthor"+ ticketId);
+		ticket.delete("TicketMsg" + ticketId);
+	}
 
 });
 
