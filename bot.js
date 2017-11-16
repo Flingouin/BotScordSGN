@@ -65,7 +65,7 @@ bot.on('message', message => {
 
 
 //System Ticket
-	if(message.content.startsWith(config.prefix + "treset")){
+	if(message.content.startsWith(config.prefix + "treset ")){
 		ticket.set("idTicket", 1);
 		message.channel.send("Tous les tickets ont été supprimé et le compteur remis à 0");
 	}
@@ -78,7 +78,7 @@ bot.on('message', message => {
 		var idAuthor = message.author.id;
 		var Author = message.author.tag;
 		var idTicket = ticket.get("idTicket");
-		msg = msg.slice(pos+7, msglength);
+		msg = msg.slice(pos+7, msglength) + "\n";
 
 		ticket.set("TicketIdAuthor" + idTicket, idAuthor);
 		ticket.set("TicketAuthor"+ idTicket, Author);
@@ -87,30 +87,29 @@ bot.on('message', message => {
 
 		message.channel.send("Votre ticket a bien été pris en compte monseigneur. Il porte le numéro " + idTicket);
 		idTicket++;
-		console.log(ticket.get("idTicket"))
 		ticket.set("idTicket", idTicket)
 
 	}
 
-	if(message.content.startsWith(config.prefix + "tget"))
+	if(message.content.startsWith(config.prefix + "tget "))
 	{
 		if (message.member.roles.has("373199648254328834")) {
 
-			var nbTicket = -1;
+			var nbTicket = 0;
 			for(i=1; i<=ticket.get("idTicket"); i++)
 			{
-				if(ticket.get("TicketMsg"+i)== null)
+				if(ticket.get("TicketMsg"+i)== null)//verif si les ticket trouver ne sont pas vide
 				{
-					nbTicket--
+
 				}else{
 				nbTicket++;
 			}
 			}
-			if(nbTicket == -1){nbTicket=0;}
+			if(nbTicket == -1){nbTicket=0;} // si pas de ticket = 0
 			message.channel.send("Il y a " + nbTicket + " doléance(s) ouverte.")
 			for(i=1; i<ticket.get("idTicket"); i++)
 			{
-				if(ticket.get("TicketMsg") != null){
+				if(ticket.get("TicketMsg"+i) != null){
 					message.channel.send("",{
 						embed: {
 							title: "Doléance " + i.toString(),
@@ -126,7 +125,7 @@ bot.on('message', message => {
 	}
 
 
-	if(message.content.startsWith(config.prefix +"tr"))
+	if(message.content.startsWith(config.prefix +"tr "))
 	{
 		var msg = message.content;
 		var ticketId = msg.split(" ");
@@ -150,7 +149,7 @@ bot.on('message', message => {
 	}
 
 
-	if(message.content.startsWith(config.prefix + "tclose"))
+	if(message.content.startsWith(config.prefix + "tclose "))
 	{
 		var msg = message.content;
 		var ticketId = msg.split(" ");
