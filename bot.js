@@ -23,7 +23,7 @@ bot.on("ready", async() =>{
 		console.log(e.stack);
 		}
 	bot.user.setGame("sauver des princesses");
-	bot.user.setStatus("idle");
+	bot.user.setStatus("dnd");
 
 });
 
@@ -65,12 +65,18 @@ bot.on('message', message => {
 
 
 //System Ticket
-	if(message.content.startsWith(config.prefix + "treset ")){
-		ticket.set("idTicket", 1);
+	if(message.content.startsWith(config.prefix + "treset")){ //reset les tickets
+		for (i=-1;i<=idTicket;i++)
+		{
+			ticket.delete("TicketMsg"+i,"");
+			ticket.delete("TicketAuthor"+i, "");
+			ticket.delete("TicketIdAuthor"+i);
+		}
+		ticket.set("idTicket", 0);
 		message.channel.send("Tous les tickets ont été supprimé et le compteur remis à 0");
 	}
 
-	if(message.content.startsWith(config.prefix + "ticket"))
+	if(message.content.startsWith(config.prefix + "ticket "))//créer un ticket
 	{
 		var msg = message.content;
 		var msglength = msg.length;
@@ -78,25 +84,34 @@ bot.on('message', message => {
 		var idAuthor = message.author.id;
 		var Author = message.author.tag;
 		var idTicket = ticket.get("idTicket");
+		var verif = 0;
 		msg = msg.slice(pos+7, msglength) + "\n";
-
+		for(i=0; i<idTicket;i++){
+			console.log(ticket.get("TicketIdAuthor"+i));
+			if(ticket.get("TicketIdAuthor"+i) == idAuthor)
+			{
+				verif = 1;
+				break
+			}else{}
+		}
+		if(verif == 0){
 		ticket.set("TicketIdAuthor" + idTicket, idAuthor);
 		ticket.set("TicketAuthor"+ idTicket, Author);
 		ticket.set("TicketMsg" + idTicket, msg)
-
-
-		message.channel.send("Votre ticket a bien été pris en compte monseigneur. Il porte le numéro " + idTicket);
+		message.channel.send("Votre ticket a bien été pris en compte monseigneur. Il porte le numéro " + (idTicket+1));
 		idTicket++;
 		ticket.set("idTicket", idTicket)
-
+	}else{
+		message.channel.send("Vous avez déjà ouvert un ticket. Attendez que mes seigneurs répondes à votre requête avant d'en ouvrir un autre !")
+	}
 	}
 
-	if(message.content.startsWith(config.prefix + "tget "))
+	if(message.content.startsWith(config.prefix + "tget")) //recup ticket ouvert
 	{
 		if (message.member.roles.has("373199648254328834")) {
 
 			var nbTicket = 0;
-			for(i=1; i<=ticket.get("idTicket"); i++)
+			for(i=0; i<ticket.get("idTicket"); i++)
 			{
 				if(ticket.get("TicketMsg"+i)== null)//verif si les ticket trouver ne sont pas vide
 				{
@@ -105,14 +120,13 @@ bot.on('message', message => {
 				nbTicket++;
 			}
 			}
-			if(nbTicket == -1){nbTicket=0;} // si pas de ticket = 0
 			message.channel.send("Il y a " + nbTicket + " doléance(s) ouverte.")
-			for(i=1; i<ticket.get("idTicket"); i++)
+			for(i=0; i<ticket.get("idTicket"); i++)
 			{
 				if(ticket.get("TicketMsg"+i) != null){
 					message.channel.send("",{
 						embed: {
-							title: "Doléance " + i.toString(),
+							title: "Doléance " + (i+1).toString(),
 							description: ticket.get("TicketMsg"+i)+"\n"+ticket.get("TicketAuthor"+i),
 							color: 0xff9900,
 						}
@@ -125,7 +139,7 @@ bot.on('message', message => {
 	}
 
 
-	if(message.content.startsWith(config.prefix +"tr "))
+	if(message.content.startsWith(config.prefix +"tr ")) //réponse ticket
 	{
 		var msg = message.content;
 		var ticketId = msg.split(" ");
@@ -149,16 +163,16 @@ bot.on('message', message => {
 	}
 
 
-	if(message.content.startsWith(config.prefix + "tclose "))
+	if(message.content.startsWith(config.prefix + "tclose ")) //ferme un ticket
 	{
 		var msg = message.content;
 		var ticketId = msg.split(" ");
 		var ticketlth = ticketId.length;
 		ticketId = ticketId.splice(1,1);
 		ticketId = parseInt(ticketId);
-		ticket.delete("TicketIdAuthor" + ticketId);
-		ticket.delete("TicketAuthor"+ ticketId);
-		ticket.delete("TicketMsg" + ticketId);
+		ticket.delete("TicketIdAuthor" + (ticketId-1));
+		ticket.delete("TicketAuthor"+ (ticketId-1));
+		ticket.delete("TicketMsg" + (ticketId-1));
 	}
 
 });
